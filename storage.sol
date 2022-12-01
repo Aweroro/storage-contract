@@ -4,15 +4,16 @@
 pragma solidity <= 0.8.7;
 
 contract myStore {
-    /**string public nameofproduct = "Rice";
-    bool public areProductsHere = true;
-    //bytes public nameofproduct = "Rice";
-    uint public noofproducts = 20;
-    int public noofmissingproducts = -5;
-    address public mystoreaddress = 0x148A3c6162026BC2ea4205b68D976E989cb49011;
-    **/
+     mapping(string => uint256) public nameofproductstonoofproducts;
 
      uint256 noofproducts;
+     
+      Foodshop [] public foodshop;
+
+     struct Foodshop {
+         uint256 noofproducts;
+         string nameofproducts;
+     }
 
      function noofstoreproducts(uint256 _noofproducts)public{
          noofproducts = _noofproducts;
@@ -20,5 +21,11 @@ contract myStore {
 
      function readnoofproducts() public view returns (uint256){
          return noofproducts;
+     }
+     
+      function productsgrouped (string memory _nameofproducts, uint256 _noofproducts) public {
+         Foodshop memory newproductsgrouped = Foodshop({noofproducts: _noofproducts, nameofproducts: _nameofproducts});
+         foodshop.push(newproductsgrouped);
+         nameofproductstonoofproducts[_nameofproducts] = _noofproducts;
      }
 }
